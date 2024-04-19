@@ -15,17 +15,31 @@ public class Main
         Main ob=new Main();
         Scanner sc=new Scanner(System.in);
         String s=sc.next();
+        String sol="";
         for(int i=0;i<s.length();i++){
             if(s.charAt(i)>='0' && s.charAt(i)<='9'){
-                System.out.print(s.charAt(i));
+                sol+=s.charAt(i);
             }
             else{
                 ob.push(s.charAt(i));
             }
         }
         while(ob.top!=-1){
-            System.out.print(ob.pop());
+            sol+=ob.pop();
         }
+        System.out.println("Postfix:- "+sol);
+        for(int i=0;i<sol.length();i++){
+            if(sol.charAt(i)>='0' && sol.charAt(i)<='9'){
+                ob.push(sol.charAt(i));
+            }
+            else{
+                int a=(int)(ob.pop()-'0');
+                int b=(int)(ob.pop()-'0');
+                char c=(char)((a+b)+48);
+                ob.push(c);
+            }
+        }
+        System.out.println("Solution:-"+ob.pop());
     }
 }
 
