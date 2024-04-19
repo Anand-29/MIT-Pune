@@ -11,6 +11,21 @@ public class Main
         top--;
         return temp;
     }
+    public char peek(){
+        return stack[top];
+    }
+    public int pre(char a){
+        switch(a){
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+            default :
+                return -1;
+        }
+    }
     public static void main(String []abc){
         Main ob=new Main();
         Scanner sc=new Scanner(System.in);
@@ -21,6 +36,9 @@ public class Main
                 sol+=s.charAt(i);
             }
             else{
+                while(ob.top!=-1 && ob.pre(ob.peek())>=ob.pre(s.charAt(i))){
+                    sol+=ob.pop();
+                }
                 ob.push(s.charAt(i));
             }
         }
@@ -35,13 +53,35 @@ public class Main
             else{
                 int a=(int)(ob.pop()-'0');
                 int b=(int)(ob.pop()-'0');
-                char c=(char)((a+b)+48);
-                ob.push(c);
+                switch(sol.charAt(i)){
+                        case '+':
+                            char c=(char)((a+b)+48);
+                            System.out.print(c);
+                            ob.push(c);
+                            break;
+                        case '*':
+                            c=(char)((a*b)+48);
+                            ob.push(c);
+                }
+                
             }
         }
         System.out.println("Solution:-"+ob.pop());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
