@@ -11,10 +11,12 @@ public class Main
 	    if(top==-1){
 	        stack[++top]=data;
 	        min=data;
+	        return;
 	    }
 	    if(data<min){
 	        stack[++top]=2*data-min;
 	        min=data;
+	        return;
 	    }
 	    stack[++top]=data;
 	}
