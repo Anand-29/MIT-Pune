@@ -1,0 +1,75 @@
+public class Main
+{
+	int top=-1;
+	int stack[]=new int[5];
+	int min=999999;
+	public void push(int data){
+	    if(top==4){
+	        System.out.print("Stack full");
+	        return;
+	    }
+	    if(top==-1){
+	        stack[++top]=data;
+	        min=data;
+	    }
+	    if(data<min){
+	        stack[++top]=2*data-min;
+	        min=data;
+	    }
+	    stack[++top]=data;
+	}
+	public int pop(){
+	    if(top==-1){
+	        System.out.print("Empty stack");
+	        return -1;
+	    }
+	    if(stack[top]<min){
+	        int temp=min;
+	        min=2*min-stack[top];
+	        top--;
+	        return temp;
+	    }
+	    int temp=stack[top];
+	    top--;
+	    return temp;
+	}
+	public void display(){
+	    for(int i=top;i>=0;i--){
+	        System.out.print(stack[i]+" ");
+	    }
+	}
+	public int empty(){
+	    if(top==-1){
+	        return 0;
+	    }
+	    else{
+	        return 1;
+	    }
+	}
+	public static void main(String []args){
+	    Main s1=new Main();
+	    Main s2=new Main();
+	    s1.push(2);
+	    s1.push(3);
+	    System.out.println(s1.min);
+	    s1.push(1);
+	    System.out.println(s1.min);
+	    s1.pop();
+	    System.out.println(s1.min);
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
