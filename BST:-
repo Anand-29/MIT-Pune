@@ -1,0 +1,99 @@
+public class Main
+{
+	class Node{
+	    int data;
+	    Node left;
+	    Node right;
+	    Node(int data){
+	        this.data=data;
+	        this.left=null;
+	        this.right=null;
+	    }
+	}
+	public Node insert(int data,Node root){
+	    if(root==null){
+	        Node newNode=new Node(data);
+	        return newNode;
+	    }
+	    else if(data<root.data){
+	        root.left=insert(data,root.left);
+	    }
+	    else if(data>root.data){
+	        root.right=insert(data,root.right);
+	    }
+	    return root;
+	}
+	public void display(Node root){
+	    if(root==null){
+	        return;
+	    }
+	    
+	    display(root.left);
+	    
+	    display(root.right);
+	    System.out.print(root.data+" ");
+	}
+	public int minimum(Node root){
+	    if(root.left==null)
+	        return root.data;
+	   return minimum(root.left);
+	}
+	public int height(Node root){
+	    if(root==null)
+	        return 0;
+	   else{
+	       if(height(root.left)>height(root.right))
+	            return 1+height(root.left);
+	       else
+	           return 1+height(root.right);
+	   }
+	}
+	public void printlevel(int level,Node root){
+	    if(root==null)
+	        return;
+	    if(level==1)
+	        System.out.print(root.data+" ");
+	    else{
+	        printlevel(level-1,root.left);
+	        printlevel(level-1,root.right);
+	    }
+	}
+	public void level(Node root){
+	    int h=height(root);
+	    for(int i=1;i<=h;i++){
+	        for(int j=i;j<=h;j++)
+	        System.out.print(" ");
+	        printlevel(i,root);
+	        System.out.println();
+	    }
+	}
+	public static void main(String []arg){
+	    Node root=null;
+	    Main ob=new Main();
+	    root=ob.insert(10,root);
+	    ob.insert(7,root);
+	    ob.insert(5,root);
+	    ob.insert(12,root);
+	    ob.insert(11,root);
+	    ob.insert(13,root);
+	    ob.insert(9,root);
+	    //ob.display(root);
+	    //System.out.println(ob.height(root)-1);
+	    ob.level(root);
+	    
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
