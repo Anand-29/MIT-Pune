@@ -1,0 +1,104 @@
+import java.util.*;
+public class Main
+{
+    class Node{
+        int data;
+        Node next;
+        Node(int data){
+            this.data=data;
+            this.next=null;
+        }
+    }
+    int vertex=4;
+    Node graph[]=new Node[4];
+    public void create(){
+        for(int i=0;i<vertex;i++)
+            graph[i]=null;
+    }
+    public void insert(int edge,int v){
+        Node newNode=new Node(v);
+        if(graph[edge]==null)
+            graph[edge]=newNode;
+        else{
+            Node temp=graph[edge];
+            while(temp.next!=null)
+                temp=temp.next;
+            temp.next=newNode;
+        }
+    }
+    public void display(){
+        for(int i=0;i<vertex;i++){
+            Node temp=graph[i];
+            System.out.print(i+"->");
+            while(temp!=null){
+                System.out.print(temp.data+" ");
+                temp=temp.next;
+            }
+            System.out.println();
+        }
+    }
+    public void dfs(int v,boolean visited[]){
+        visited[v]=true;
+        System.out.print(v+"->");
+        Node temp=graph[v];
+        while(temp!=null){
+            int data=temp.data;
+            if(visited[data]!=true)
+                dfs(data,visited);
+            temp=temp.next;
+        }
+    }
+    public void solution(int x,int y,int arr[][]){
+        if(x<0 || x>3 || y<0 || y>3 || arr[x][y]==0)
+            return;
+        arr[x][y]=0;
+        solution(x+1,y,arr);
+        solution(x-1,y,arr);
+        solution(x,y+1,arr);
+        solution(x,y-1,arr);
+    }
+	public static void main(String[]a){
+	    Main ob=new Main();
+	    int arr[][]={{1,1,0,0},
+	                 {0,1,0,1},
+	                 {0,0,0,1},
+	                 {1,1,0,0}};
+	   int c=0;
+	   for(int i=0;i<4;i++){
+	       for(int j=0;j<4;j++){
+	           if(arr[i][j]==1){
+	               c++;
+	               ob.solution(i,j,arr);
+	           }
+	       }
+	   }
+	   System.out.print(c);
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
