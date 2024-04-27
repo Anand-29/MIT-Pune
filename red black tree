@@ -1,10 +1,7 @@
 public class Main
 {
     Node root;
-    boolean ll;
-    boolean lr;
-    boolean rr;
-    boolean rl;
+    boolean ll,rl,rr,lr;
     Main(){
         this.root=null;
         this.ll=false;
@@ -36,18 +33,18 @@ public class Main
             root.left=insertbuilder(root.left,data);
             root.left.parent=root;
             if(root!=this.root){
-            if(root.color=='r' && root.left.color=='r'){
-                flag=true;
-            }
+                if(root.color=='r' && root.left.color=='r'){
+                    flag=true;
+                }
             }
         }
         else if(data>root.data){
             root.right=insertbuilder(root.right,data);
             root.right.parent=root;
             if(root!=this.root){
-            if(root.color=='r' && root.right.color=='r'){
-                flag=true;
-            }
+                if(root.color=='r' && root.right.color=='r'){
+                    flag=true;
+                }
             }
         }
         if(this.ll==true){
@@ -62,14 +59,6 @@ public class Main
             root.left.color='r';
             this.rr=false;
         }
-        else if(this.rl==true){
-            root.right=rightrotate(root.right);
-            root.right.parent=root;
-            root=leftrotate(root);
-            root.color='b';
-            root.left.color='r';
-            this.rl=false;
-        }
         else if(this.lr==true){
             root.left=leftrotate(root.left);
             root.left.parent=root;
@@ -78,16 +67,16 @@ public class Main
             root.right.color='r';
             this.lr=false;
         }
+        else if(this.rl==true){
+            root.right=rightrotate(root.right);
+            root.right.parent=root;
+            root=leftrotate(root);
+            root.color='b';
+            root.left.color='r';
+            this.rl=false;
+        }
         if(flag==true){
-            if(root.parent.left.color=='b' || root.parent.left==null){
-                if(root.right!=null && root.right.color=='r'){
-                    this.rr=true;
-                }
-                else if(root.left!=null && root.left.color=='r'){
-                    this.rl=true;
-                }
-            }
-            else if(root.parent.right.color=='b' || root.parent.right==null){
+            if(root.parent.right==null || root.parent.right.color=='b'){
                 if(root.left!=null && root.left.color=='r'){
                     this.ll=true;
                 }
@@ -95,20 +84,26 @@ public class Main
                     this.lr=true;
                 }
             }
-            else{
-                if(root.parent.right.color=='r'){
-                    root.color='b';
-                    root.parent.right.color='b';
-                    if(root.parent!=this.root){
-                        root.parent.color='r';
-                    }
+            else if(root.parent.left.color=='b' || root.parent.left==null){
+                if(root.left!=null && root.left.color=='r'){
+                    this.rl=true;
                 }
-                else if(root.parent.left.color=='r'){
-                    root.color='b';
-                    root.parent.left.color='b';
-                    if(root.parent!=this.root){
-                        root.parent.color='r';
-                    }
+                else if(root.right!=null && root.right.color=='r'){
+                    this.rr=true;
+                }
+            }
+            else if(root.parent.right.color=='r'){
+                root.color='b';
+                root.parent.right.color='b';
+                if(root.parent!=this.root){
+                    root.parent.color='r';
+                }
+            }
+            else if(root.parent.left.color=='r'){
+                root.color='b';
+                root.parent.left.color='b';
+                if(root.parent!=this.root){
+                    root.parent.color='r';
                 }
             }
             flag=false;
@@ -118,7 +113,7 @@ public class Main
     public Node leftrotate(Node root){
         Node t1=root.right;
         Node t2=t1.left;
-        root.right=t1;
+        root.right=t2;
         t1.left=root;
         root.parent=t1;
         if(t2!=null){
@@ -147,26 +142,29 @@ public class Main
         inorder(root.left);
         System.out.print(root.color);
         inorder(root.right);
+        
     }
     public void insert(int data){
         if(this.root==null){
             Node newNode=new Node(data);
             this.root=newNode;
-            root.color='b';
+            this.root.color='b';
         }
         else{
             this.root=insertbuilder(this.root,data);
         }
     }
-	public static void main(String []a){
-	    Main ob=new Main();
-	    ob.insert(5);
-	    ob.insert(6);
-	    ob.insert(3);
-	    ob.insert(2);
-	    ob.display();
+	public static void main(String[] args) {
+		Main ob=new Main();
+		ob.insert(5);
+		ob.insert(4);
+		ob.insert(3);
+			ob.insert(2);
+		ob.display();
 	}
 }
+
+
 
 
 
