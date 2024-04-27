@@ -1,0 +1,184 @@
+public class Main
+{
+    Node root;
+    boolean ll;
+    boolean lr;
+    boolean rr;
+    boolean rl;
+    Main(){
+        this.root=null;
+        this.ll=false;
+        this.rl=false;
+        this.rr=false;
+        this.lr=false;
+    }
+    class Node{
+        int data;
+        Node left;
+        Node right;
+        Node parent;
+        char color;
+        Node(int data){
+            this.data=data;
+            this.left=null;
+            this.right=null;
+            this.parent=null;
+            this.color='r';
+        }
+    }
+    public Node insertbuilder(Node root,int data){
+        boolean flag=false;
+        if(root==null){
+            Node newNode=new Node(data);
+            return newNode;
+        }
+        else if(data<root.data){
+            root.left=insertbuilder(root.left,data);
+            root.left.parent=root;
+            if(root!=this.root){
+            if(root.color=='r' && root.left.color=='r'){
+                flag=true;
+            }
+            }
+        }
+        else if(data>root.data){
+            root.right=insertbuilder(root.right,data);
+            root.right.parent=root;
+            if(root!=this.root){
+            if(root.color=='r' && root.right.color=='r'){
+                flag=true;
+            }
+            }
+        }
+        if(this.ll==true){
+            root=rightrotate(root);
+            root.color='b';
+            root.right.color='r';
+            this.ll=false;
+        }
+        else if(this.rr==true){
+            root=leftrotate(root);
+            root.color='b';
+            root.left.color='r';
+            this.rr=false;
+        }
+        else if(this.rl==true){
+            root.right=rightrotate(root.right);
+            root.right.parent=root;
+            root=leftrotate(root);
+            root.color='b';
+            root.left.color='r';
+            this.rl=false;
+        }
+        else if(this.lr==true){
+            root.left=leftrotate(root.left);
+            root.left.parent=root;
+            root=rightrotate(root);
+            root.color='b';
+            root.right.color='r';
+            this.lr=false;
+        }
+        if(flag==true){
+            if(root.parent.left.color=='b' || root.parent.left==null){
+                if(root.right!=null && root.right.color=='r'){
+                    this.rr=true;
+                }
+                else if(root.left!=null && root.left.color=='r'){
+                    this.rl=true;
+                }
+            }
+            else if(root.parent.right.color=='b' || root.parent.right==null){
+                if(root.left!=null && root.left.color=='r'){
+                    this.ll=true;
+                }
+                else if(root.right!=null && root.right.color=='r'){
+                    this.lr=true;
+                }
+            }
+            else{
+                if(root.parent.right.color=='r'){
+                    root.color='b';
+                    root.parent.right.color='b';
+                    if(root.parent!=this.root){
+                        root.parent.color='r';
+                    }
+                }
+                else if(root.parent.left.color=='r'){
+                    root.color='b';
+                    root.parent.left.color='b';
+                    if(root.parent!=this.root){
+                        root.parent.color='r';
+                    }
+                }
+            }
+            flag=false;
+        }
+        return root;
+    }
+    public Node leftrotate(Node root){
+        Node t1=root.right;
+        Node t2=t1.left;
+        root.right=t1;
+        t1.left=root;
+        root.parent=t1;
+        if(t2!=null){
+            t2.parent=root;
+        }
+        return t1;
+    }
+    public Node rightrotate(Node root){
+        Node t1=root.left;
+        Node t2=t1.right;
+        root.left=t2;
+        t1.right=root;
+        root.parent=t1;
+        if(t2!=null){
+            t2.parent=root;
+        }
+        return t1;
+    }
+    public void display(){
+        inorder(this.root);
+    }
+    public void inorder(Node root){
+        if(root==null){
+            return;
+        }
+        inorder(root.left);
+        System.out.print(root.color);
+        inorder(root.right);
+    }
+    public void insert(int data){
+        if(this.root==null){
+            Node newNode=new Node(data);
+            this.root=newNode;
+            root.color='b';
+        }
+        else{
+            this.root=insertbuilder(this.root,data);
+        }
+    }
+	public static void main(String []a){
+	    Main ob=new Main();
+	    ob.insert(5);
+	    ob.insert(6);
+	    ob.insert(3);
+	    ob.insert(2);
+	    ob.display();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
