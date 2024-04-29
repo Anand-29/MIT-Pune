@@ -25,9 +25,6 @@ public class Main
             int index=(int)a.charAt(i)-97;
             if(temp.arr[index]==null){
                 temp.arr[index]=createNode();
-                if(root==null){
-                    root=temp;
-                }
             }
             temp=temp.arr[index];
         }
@@ -51,6 +48,7 @@ public class Main
 	Main ob=new Main();
 	ob.insert("abc");
 	ob.insert("abcd");
+	ob.insert("def");
 	ob.display();
 	}
 }
