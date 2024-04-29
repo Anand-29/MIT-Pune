@@ -1,0 +1,70 @@
+public class Main
+{
+    class Node{
+        boolean end;
+        Node arr[]=new Node[26];
+        Node(){
+            end=false;
+            for(int i=0;i<26;i++){
+                arr[i]=null;
+            }
+        }
+    }
+    Node root=null;
+    public Node createNode(){
+        Node newNode=new Node();
+        return newNode;
+    }
+    public void insert(String a){
+        Node temp=new Node();
+        if(root==null){
+            root=temp;
+        }
+        temp=root;
+        for(int i=0;i<a.length();i++){
+            int index=(int)a.charAt(i)-97;
+            if(temp.arr[index]==null){
+                temp.arr[index]=createNode();
+                if(root==null){
+                    root=temp;
+                }
+            }
+            temp=temp.arr[index];
+        }
+        temp.end=true;
+    }
+    public void printhelper(Node root){
+        if(root.end==true){
+            System.out.println();
+        }
+        for(int i=0;i<26;i++){
+            if(root.arr[i]!=null){
+                System.out.print((char)(i+97));
+                printhelper(root.arr[i]);
+            }
+        }
+    }
+    public void display(){
+        printhelper(root);
+    }
+	public static void main(String[] args) {
+	Main ob=new Main();
+	ob.insert("abc");
+	ob.insert("abcd");
+	ob.display();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
