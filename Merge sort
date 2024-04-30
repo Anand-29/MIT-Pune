@@ -1,0 +1,100 @@
+public class Main
+{
+    public void merge(int arr[],int l,int mid,int h){
+        int n=mid-l+1;
+        int m=h-mid;
+        int L[]=new int[n];
+        int R[]=new int[m];
+        int k=l;
+        for(int i=0;i<n;i++){
+            L[i]=arr[k++];
+        }
+        for(int j=0;j<m;j++){
+            R[j]=arr[k++];
+        }
+        int i=0,j=0;k=l;
+        while(i<n && j<m){
+            if(L[i]<R[j])
+                arr[k++]=L[i++];
+            else
+                arr[k++]=R[j++];
+        }
+        while(i<n)
+            arr[k++]=L[i++];
+        while(j<m)
+            arr[k++]=R[j++];
+    }
+    public void mergesort(int arr[],int l,int h){
+        if(l<h){
+            int m=(l+h)/2;
+            mergesort(arr,l,m);
+            mergesort(arr,m+1,h);
+            merge(arr,l,m,h);
+        }
+    }
+    public static void main(String[] args) {
+		int arr[]={4,7,4,1,3};
+		int n=arr.length;
+		int key,j;
+		Main ob=new Main();
+		ob.mergesort(arr,0,n-1);
+	    for(int i=0;i<n;i++){
+	        System.out.print(arr[i]+" ");
+	    }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
