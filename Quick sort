@@ -1,0 +1,115 @@
+public class Main
+{
+    public void merge(int arr[],int l,int mid,int h){
+        int n=mid-l+1;
+        int m=h-mid;
+        int k=l;
+        int L[]=new int[n];
+        int R[]=new int[m];
+        for(int i=0;i<n;i++){
+            L[i]=arr[k++];
+        }
+        for(int i=0;i<m;i++){
+            R[i]=arr[k++];
+        }
+        int i=0;
+        int j=0;
+        k=l;
+        while(i<n && j<m){
+            if(L[i]<R[j]){
+                arr[k++]=L[i++];
+            }
+            else{
+                arr[k++]=R[j++];
+            }
+        }
+        while(i<n){
+            arr[k++]=L[i++];
+        }
+        while(j<m){
+            arr[k++]=R[j++];
+        }
+    }
+    public void mergesort(int []arr,int low,int high){
+        if(low<high){
+            int mid=(low+high)/2;
+           
+            mergesort(arr,low,mid);
+            mergesort(arr,mid+1,high);
+            merge(arr,low,mid,high);
+        }
+    }
+    public int quick(int arr[],int l,int h){
+        int pivot=h;
+        int x=l-1;
+        for(int j=l;j<h;j++){
+            if(arr[j]<arr[pivot]){
+                x++;
+            int temp=arr[x];
+            arr[x]=arr[j];
+            arr[j]=temp;
+            }
+        }
+        int temp=arr[x+1];
+        arr[x+1]=arr[pivot];
+        arr[pivot]=temp;
+        return x+1;
+    }
+    public void quicksort(int arr[],int l,int h){
+        if(l<h){
+            int index=quick(arr,l,h);
+            quicksort(arr,l,index-1);
+            quicksort(arr,index+1,h);
+        }
+    }
+	public static void main(String[] args) {
+		int arr[]={3,4,5,2,1};
+		int n=arr.length;
+		Main ob=new Main();
+		ob.quicksort(arr,0,n-1);
+		for(int i=0;i<n;i++){
+		    System.out.print(arr[i]+" ");
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
