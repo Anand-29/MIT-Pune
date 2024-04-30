@@ -1,0 +1,72 @@
+public class Main
+{
+    public void search(int arr[],int l,int h,int se){
+        if(l<h){
+            int m=(l+h)/2;
+            if(arr[m]==se)
+                System.out.print(arr[m]);
+            else if(se<arr[m])
+                search(arr,l,m,se);
+            else if(se>arr[m])
+                search(arr,m+1,h,se);
+        }
+    }
+    public static void main(String[] args) {
+		int arr[]={4,7,4,1,3};
+		int n=arr.length;
+		int key,j;
+		for(int i=1;i<n;i++){
+		    key=arr[i];
+		    j=i-1;
+		    while(j>=0 && arr[j]>key){
+		            arr[j+1]=arr[j];
+		        j--;
+		    }
+		    arr[j+1]=key;
+		}
+	    for(int i=0;i<n;i++){
+	        System.out.print(arr[i]+" ");
+	    }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
