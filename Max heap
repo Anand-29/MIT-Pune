@@ -1,52 +1,50 @@
-import java.util.*;
-public class Main {
-    public void heap(int arr[],int i,int n){
+public class Main
+{
+    public void heapify(int arr[],int i,int n){
         int largest=i;
         int left=2*i+1;
         int right=2*i+2;
-        if(left<n && arr[left]>arr[i]){
+        if(left<n && arr[left]>arr[i] ){
             largest=left;
         }
         if(right<n && arr[right]>arr[largest]){
             largest=right;
         }
-        if(largest!=i){
-            int t=arr[i];
+        if(i!=largest){
+            int temp=arr[i];
             arr[i]=arr[largest];
-            arr[largest]=t;
-            heap(arr,largest,n);
+            arr[largest]=temp;
+            heapify(arr,largest,n);
         }
         
     }
-    public void solution(int arr[]){
-        int n=arr.length;
-        for(int i=(n/2)-1;i>=0;i--){
-            heap(arr,i,n);
+    public void heap(int []arr,int n){
+        for(int i=(n-2)/2;i>=0;i--){
+            heapify(arr,i,n);
         }
     }
-    public void delete(int arr[],int n){
+    public int delete(int arr[],int n){
         if(n<=0){
-            return;
+            return -1;
         }
         int data=arr[0];
-        System.out.print(data);
-        int t=arr[0];
+        int temp=arr[0];
         arr[0]=arr[n-1];
-        arr[n-1]=t;
+        arr[n-1]=temp;
         n=n-1;
-        for(int i=(n/2)-1;i>=0;i--){
-            heap(arr,i,n);
+        System.out.print(data+" ");
+        for(int i=(n-2)/2;i>=0;i--){
+            heapify(arr,i,n);
         }
-        delete(arr,n);
+        return delete(arr,n);
     }
-	public static void main(String []ar){
-	    int arr[]={2,5,6,7,5,4,9,0};
-	    Main ob=new Main();
-	    ob.solution(arr);
-	    ob.delete(arr,arr.length);
+	public static void main(String[] args) {
+		int arr[]={4,5,6,1,2,8,5};
+		Main ob=new Main();
+		ob.heap(arr,arr.length);
+		System.out.print(ob.delete(arr,arr.length)+" ");
+	}
 }
-}
-
 
 
 
