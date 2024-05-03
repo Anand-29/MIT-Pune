@@ -1,0 +1,65 @@
+import java.util.*;
+public class Main
+{
+    public int function(int arr[],int n,int p,int c,int [][]dp){
+        if(c<0){
+            return 0;
+        }
+        if(dp[p-1][c]!=-1)
+            return dp[p-1][c];
+        int a=0;
+        dp[p-1][c]=0+function(arr,n,p,c-1,dp);
+        if(p==n || arr[c]>=arr[p]){
+            a=1+function(arr,n,c,c-1,dp);
+            dp[p-1][c]=Math.max(a,dp[p-1][c]);
+        }
+        return dp[p-1][c];
+    }
+	public static void main(String[] args) {
+	    Main ob=new Main();
+	    int arr[]={10,3,20,15,4};
+	    int n=arr.length;
+	    int dp[][]=new int[n][n];
+	    for(int i=0;i<n-1;i++){
+	        for(int j=0;j<n;j++){
+	            dp[i+1][j]=-1;
+	        }
+	    }
+	    for(int i=1;i<n;i++){
+	        for(int j=i;j<n;j++){
+	            if(arr[j]>=arr[i]){
+	                dp[i][j]=1+dp[i-1][i];
+	            }
+	            else{
+	                dp[i][j]=Math.max(dp[i-1][i],dp[i][j]);
+	            }
+	        }
+	    }
+	    int c=ob.function(arr,n,n,n-1,dp);
+	    System.out.print(dp[n-1][n-1]);
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
