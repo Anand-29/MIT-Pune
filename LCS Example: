@@ -1,0 +1,50 @@
+import java.util.*;
+public class Main
+{
+    public int solution(String a,String b,int i,int j){
+        if(i<0 || j<0)
+            return 0;
+        int c1=0,c2=0;
+        if(a.charAt(i)==b.charAt(j)){
+            c1=1+solution(a,b,i-1,j-1);
+            return c1;
+        }
+        else{ 
+            c2=Math.max(solution(a,b,i,j-1),solution(a,b,i-1,j));
+            return c2;
+    }
+    }
+    public static void main(String[] args) {
+	    Main ob=new Main();
+	    String a="axbycz";
+	    String b="abyzc";
+	    int c=ob.solution(a,b,a.length()-1,b.length()-1);
+	    System.out.print(c);
+	    
+        
+    }
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
