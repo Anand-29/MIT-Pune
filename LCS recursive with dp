@@ -1,0 +1,44 @@
+import java.util.*;
+public class Main
+{
+    public int function(String a,String b,int i,int j,int [][]dp){
+        if(i<0 || j<0 ){
+            System.out.print("a");
+            return 0;
+        }
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        if(a.charAt(i)==b.charAt(j)){
+            System.out.print("b");
+            dp[i][j]=1+function(a,b,i-1,j-1,dp);
+            return dp[i][j];
+        }
+        else{
+            System.out.print("c");
+            dp[i][j]=Math.max(function(a,b,i,j-1,dp),function(a,b,i-1,j,dp));
+            return dp[i][j];
+        }
+    }
+	public static void main(String[] args) {
+	    String a="axbyc";
+	    String b="ayxbc";
+	    Main ob=new Main();
+	    int dp[][]=new int[a.length()+1][a.length()+1];
+	    for(int i=0;i<a.length()+1;i++){
+	        for(int j=0;j<a.length()+1;j++){
+	            dp[i][j]=-1;
+	        }
+	    }
+	    int c=ob.function(a,b,a.length()-1,b.length()-1,dp);
+	    System.out.print(c);
+	}
+}
+
+
+
+
+
+
+
+
+
