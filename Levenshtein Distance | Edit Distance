@@ -1,0 +1,59 @@
+public class Main
+{
+    public int solution(String a,String b,int i,int j,int dp[][]){
+        if(i<=0)
+            return j;
+        if(j<=0)
+            return i;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        if(a.charAt(i-1)==b.charAt(j-1)){
+            dp[i][j]= solution(a,b,i-1,j-1,dp);
+            return dp[i][j];}
+        else{
+            dp[i][j]=1+Math.min(Math.min(solution(a,b,i,j-1,dp),solution(a,b,i-1,j,dp)),solution(a,b,i-1,j-1,dp));
+            return dp[i][j];
+        }
+    }
+    public static void main(String[] args) {
+		Main ob=new Main();
+		String a="abced";
+		String b="abc";
+		int i=a.length();
+		int j=b.length();
+		int dp[][]=new int[i+1][j+1];
+		for(int y=0;y<=j;y++)
+		        dp[0][y]=y;
+		for(int x=0;x<=i;x++ )
+		        dp[x][0]=x;
+		for(int x=1;x<=i;x++){
+		    for(int y=1;y<=j;y++){
+		        if(a.charAt(x-1)==b.charAt(y-1))
+		            dp[x][y]=0+dp[x-1][y-1];
+		        else{
+		            int z=Math.min(dp[x-1][y],dp[x-1][y-1]);
+		            dp[x][y]=1+Math.min(dp[x][y-1],z);
+		    }
+		}
+	}
+	for(int x=0;x<=i;x++){
+	    for(int y=0;y<=j;y++){
+	        System.out.print(dp[x][y]+" ");
+	    }
+	    System.out.println();
+	}
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
