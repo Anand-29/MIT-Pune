@@ -1,0 +1,64 @@
+public class Main
+{
+    public int solution(int []arr,int i,int j,int dp[][]){
+       if(i==j)
+        return 0;
+       if(dp[i][j]!=-1)
+            return dp[i][j];
+       int min=Integer.MAX_VALUE;
+       for(int x=i;x<j;x++){
+           int a=solution(arr,i,x,dp)+solution(arr,x+1,j,dp)+arr[i-1]*arr[x]*arr[j];
+           dp[i][j]=Math.min(min,a);
+       }
+       return dp[i][j];
+    }
+    public static void main(String[] args) {
+		Main ob=new Main();
+		int arr[]={2,3,2,3};
+		int n=arr.length;
+		int dp[][]=new int[n+1][n+1];
+		for(int i=0;i<=n;i++){
+		    for(int j=0;j<=n;j++){
+		        //dp[0][j]=0;
+		        //dp[j][0]=0;
+		        if(i==j)
+		            dp[i][j]=0;
+		        else
+		            dp[i][j]=-1;
+		}
+		}
+		int c=ob.solution(arr,1,n-1,dp);
+		//System.out.print(c);
+		for(int i=0;i<=n;i++){
+		    for(int j=0;j<=n;j++){
+		        System.out.print(dp[i][j]+" ");
+		    }
+		    System.out.println();
+		}
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
