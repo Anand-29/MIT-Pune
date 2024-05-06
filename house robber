@@ -1,0 +1,48 @@
+public class Main
+{
+    public int solution(int ar[],int s,int e){
+        if(s==e)
+            return ar[e];
+        if(s==e-1)
+            return Math.max(ar[s],ar[e]);
+        else{
+            int a=ar[e]+solution(ar,s,e-2);
+            int b=0+solution(ar,s,e-1);
+            return Math.max(a,b);
+        }
+    }
+    public int solutionhelper(int ar[],int n){
+        int a=solution(ar,0,n-1);
+        int b=solution(ar,1,n);
+        return Math.max(a,b);
+    }
+	public static void main(String[] args) {
+		int house[]={70,40,10,10,50};
+		Main ob=new Main();
+		int c=ob.solutionhelper(house,house.length-1);
+		System.out.print(c);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
