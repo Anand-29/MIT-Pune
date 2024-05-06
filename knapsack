@@ -1,0 +1,59 @@
+public class Main
+{
+    public int solution(int cap,int item,int []wt,int []pr,int [][]dp){
+        if(cap==0 || item<0)
+            return 0;
+        if(dp[item][cap]!=-1)
+            return dp[item][cap];
+        if(wt[item]>cap){
+            dp[item][cap]=solution(cap,item-1,wt,pr,dp);
+            return dp[item][cap];
+        }
+        else{
+            int a=pr[item]+solution(cap-wt[item],item-1,wt,pr,dp);
+            int b=0+solution(cap,item-1,wt,pr,dp);
+            dp[item][cap]=Math.max(a,b);
+            return dp[item][cap];
+        }
+    }
+	public static void main(String[] args) {
+		int arr[]={2,5,4,13,6};
+		int val[]={5,3,1,20,4};
+		int cap=12;
+		Main ob=new Main();
+		int dp[][]=new int[arr.length+1][cap+1];
+		for(int i=0;i<=arr.length;i++){
+		    for(int j=0;j<=cap;j++){
+		        dp[i][0]=0;
+		        dp[0][j]=0;
+		    }
+		}
+		//int c=ob.solution(cap,arr.length-1,arr,val,dp);
+		for(int i=1;i<=arr.length;i++){
+	        for(int j=1;j<=cap;j++){
+	            if(arr[i-1]>j)
+	                dp[i][j]=dp[i-1][j];
+	            else
+	                dp[i][j]=Math.max(dp[i-1][j],val[i-1]+dp[i-1][j-arr[i-1]]);
+	            
+	        }
+		}
+	    
+	    for(int i=0;i<=arr.length;i++){
+	        for(int j=0;j<=cap;j++){
+	            System.out.print(dp[i][j]+" ");
+	        }
+	        System.out.println();
+	    }
+	}
+}
+
+
+
+
+
+
+
+
+
+
