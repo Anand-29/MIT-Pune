@@ -1,0 +1,44 @@
+public class Main
+{
+    public int solution(int ar[],int i){
+        if(i<=0)
+            return 0;
+        if(i==1)
+            return Math.abs(ar[i]-ar[i-1]);
+        else{
+            int a=solution(ar,i-1)+Math.abs(ar[i]-ar[i-1]);
+            int b=solution(ar,i-2)+Math.abs(ar[i]-ar[i-2]);
+            return Math.min(a,b);
+        }
+        
+    }
+	public static void main(String[] args) {
+		int frog[]={10,40,20,10,30};
+		Main ob=new Main();
+		int c=ob.solution(frog,frog.length-1);
+		System.out.print(c);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
