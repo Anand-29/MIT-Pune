@@ -1,41 +1,62 @@
 public class Main
 {
-    public int solution(int cap,int item,int []wt,int []pr,int [][]dp){
-        if(cap==0 || item<0)
+    public int solution(int wt[],int pr[],int cap,int n){
+        if(n<0 || cap==0)
             return 0;
-        if(dp[item][cap]!=-1)
-            return dp[item][cap];
-        if(wt[item]>cap){
-            dp[item][cap]=solution(cap,item-1,wt,pr,dp);
-            return dp[item][cap];
-        }
+        if(wt[n]>cap)
+            return solution(wt,pr,cap,n-1);
         else{
-            int a=pr[item]+solution(cap-wt[item],item-1,wt,pr,dp);
-            int b=0+solution(cap,item-1,wt,pr,dp);
-            dp[item][cap]=Math.max(a,b);
-            return dp[item][cap];
+            int a=0+solution(wt,pr,cap,n-1);
+            int b=pr[n]+solution(wt,pr,cap-wt[n],n-1);
+            return Math.max(a,b);
         }
+        
     }
 	public static void main(String[] args) {
-		int arr[]={2,5,4,13,6};
-		int val[]={5,3,1,20,4};
+		int wt[]={3,5,4,2,1};
+		int pr[]={4,1,3,5,2};
 		int cap=12;
+		int n=wt.length;
 		Main ob=new Main();
-		int dp[][]=new int[arr.length+1][cap+1];
-		for(int i=0;i<=arr.length;i++){
-		    for(int j=0;j<=cap;j++){
-		        dp[i][j]=-1;
-		    }
-		}
-		int c=ob.solution(cap,arr.length-1,arr,val,dp);
-	    for(int i=0;i<=arr.length;i++){
+		//int c=ob.solution(wt,pr,cap,n-1);
+	    //System.out.print(c);
+	    int dp[][]=new int[n+1][cap+1];
+	    for(int i=0;i<=n;i++){
 	        for(int j=0;j<=cap;j++){
+	            dp[0][j]=0;
+	            dp[i][0]=0;
+	        }
+	    }
+	    for(int i=1;i<=n;i++){
+	        for(int j=1;j<=cap;j++){
+	            if(wt[i-1]>j)
+	                dp[i][j]=dp[i-1][j];
+	            else
+	                dp[i][j]=Math.max(dp[i-1][j],pr[i-1]+dp[i-1][j-wt[i-1]]);
+	        }
+	    }
+	    for(int i=1;i<=n;i++){
+	        for(int j=1;j<=cap;j++){
 	            System.out.print(dp[i][j]+" ");
 	        }
 	        System.out.println();
 	    }
+	    
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
