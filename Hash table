@@ -61,6 +61,26 @@ public class Main
             System.out.println();
         }
     }
+    public void delete(int data){
+        int key=hash(data);
+        if(table[key]!=null){
+            Node t1=table[key];
+            while(t1!=null){
+                if(t1.data==data){
+                    Node t3=null;
+                    if(t1.next!=null)
+                        t3=t1.next;
+                    t1.next=t3.next;
+                    System.out.println("Data is deleted");
+                    return;
+                }
+                t1=t1.next;
+            }
+        }
+        else{
+            System.out.println("data is not present");
+        }
+    }
 	public static void main(String[] args) {
 		Main ob=new Main();
 		ob.create();
@@ -70,6 +90,8 @@ public class Main
 		ob.insert(11);
 		ob.insert(12);
 		System.out.println(ob.search(30));
+		ob.display();
+		ob.delete(20);
 		ob.display();
 	    
 	}
