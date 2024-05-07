@@ -13,9 +13,9 @@ public class Main
         for(int i=0;i<10;i++)
             table[i]=null;
     }
-    public Node NewNode(int data){
-        Node nn=new Node(data);
-        return nn;
+    public Node getNode(int data){
+        Node newNode=new Node(data);
+        return newNode;
     }
     public int hash(int data){
         return data%10;
@@ -23,56 +23,57 @@ public class Main
     public void insert(int data){
         int key=hash(data);
         if(table[key]==null)
-            table[key]=NewNode(data);
+            table[key]=getNode(data);
         else{
             Node temp=table[key];
             while(temp.next!=null)
                 temp=temp.next;
-            temp.next=NewNode(data);
+            temp.next=getNode(data);
         }
     }
     public String search(int data){
         int key=hash(data);
-        if(table[key]!=null)
-        {
+        if(table[key]!=null){
             Node temp=table[key];
             while(temp!=null){
                 if(temp.data==data)
-                    return "yes";
+                    return "Yes";
                 temp=temp.next;
             }
         }
-        return "no";
+        else{
+            return "No";
+        }
+        return "No";
     }
     public void display(){
         for(int i=0;i<10;i++){
-            System.out.print(i+"->");
-            if(table[i]!=null){
-                Node temp=table[i];
+            System.out.print(i+" -> : ");
+            Node temp=table[i];
+            if(temp!=null){
                 while(temp!=null){
                     System.out.print(temp.data+" ");
                 temp=temp.next;
                 }
-                
             }
             else
-            System.out.print("NULL");
+                System.out.print("null");
             System.out.println();
         }
     }
 	public static void main(String[] args) {
-	    Main ob=new Main();
-	    ob.create();
-	    ob.insert(10);
-	    ob.insert(20);
-	    ob.insert(30);
-	    ob.insert(22);
-	    System.out.println(ob.search(56));
-	    ob.display();
+		Main ob=new Main();
+		ob.create();
+		ob.insert(10);
+		ob.insert(20);
+		ob.insert(30);
+		ob.insert(11);
+		ob.insert(12);
+		System.out.println(ob.search(30));
+		ob.display();
+	    
 	}
 }
-
-
 
 
 
