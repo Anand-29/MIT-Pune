@@ -101,7 +101,7 @@ public class Main
 		ob.insert(12);
 		System.out.println(ob.search(30));
 		ob.display();
-		ob.delete(35);
+		ob.delete(20);
 		ob.display();
 	    
 	}
