@@ -65,16 +65,26 @@ public class Main
         int key=hash(data);
         if(table[key]!=null){
             Node t1=table[key];
-            while(t1!=null){
-                if(t1.data==data){
+            Node t2=null;
+            if(t1.data==data){
+                if(t1.next!=null)
+                    t2=t1.next;
+                table[key]=t2;
+                System.out.println("Data is deleted");
+                return;
+            }
+            t2=t1.next;
+            while(t2!=null){
+                if(t2.data==data){
                     Node t3=null;
-                    if(t1.next!=null)
-                        t3=t1.next;
-                    t1.next=t3.next;
+                    if(t2.next!=null)
+                        t3=t2.next;
+                    t1.next=t3;
                     System.out.println("Data is deleted");
                     return;
                 }
                 t1=t1.next;
+                t2=t2.next;
             }
         }
         else{
@@ -91,7 +101,7 @@ public class Main
 		ob.insert(12);
 		System.out.println(ob.search(30));
 		ob.display();
-		ob.delete(20);
+		ob.delete(35);
 		ob.display();
 	    
 	}
