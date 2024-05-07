@@ -1,0 +1,86 @@
+public class Main
+{
+    class Node{
+        int data;
+        Node next;
+        Node(int data){
+            this.data=data;
+            this.next=null;
+        }
+    }
+    Node table[]=new Node[10];
+    public void create(){
+        for(int i=0;i<10;i++)
+            table[i]=null;
+    }
+    public Node NewNode(int data){
+        Node nn=new Node(data);
+        return nn;
+    }
+    public int hash(int data){
+        return data%10;
+    }
+    public void insert(int data){
+        int key=hash(data);
+        if(table[key]==null)
+            table[key]=NewNode(data);
+        else{
+            Node temp=table[key];
+            while(temp.next!=null)
+                temp=temp.next;
+            temp.next=NewNode(data);
+        }
+    }
+    public String search(int data){
+        int key=hash(data);
+        if(table[key]!=null)
+        {
+            Node temp=table[key];
+            while(temp!=null){
+                if(temp.data==data)
+                    return "yes";
+                temp=temp.next;
+            }
+        }
+        return "no";
+    }
+    public void display(){
+        for(int i=0;i<10;i++){
+            System.out.print(i+"->");
+            if(table[i]!=null){
+                Node temp=table[i];
+                while(temp!=null){
+                    System.out.print(temp.data+" ");
+                temp=temp.next;
+                }
+                
+            }
+            else
+            System.out.print("NULL");
+            System.out.println();
+        }
+    }
+	public static void main(String[] args) {
+	    Main ob=new Main();
+	    ob.create();
+	    ob.insert(10);
+	    ob.insert(20);
+	    ob.insert(30);
+	    ob.insert(22);
+	    System.out.println(ob.search(56));
+	    ob.display();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
