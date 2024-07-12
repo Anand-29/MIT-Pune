@@ -5,10 +5,49 @@ struct Node{
     struct Node *left;
     struct Node *right;
 };
+struct Node *deletedata(struct Node *root,int data){
+    if(root==NULL){
+        return root;
+    }
+    else if(data<root->data){
+        root=deletedata(root->left,data);
+    }
+    else if(data>root->data){
+        root=deletedata(root->right,data);
+    }
+    else{
+        if(root->left==NULL){
+            struct Node *temp=root->right;
+            free(root);
+            return temp;
+        }
+        else if(root->right==NULL){
+            struct Node *temp=root->left;
+            free(root);
+            return temp;
+        }
+        else{
+            struct Node *t1=root;
+            struct Node *t2=root->right;
+            while(t2->left!=NULL){
+                t1=t2;
+                t2=t2->left;
+            }
+            root->data=t2->data;
+            if(t1==root){
+                t1->right=t2->right;
+            }
+            else{
+                t1->left=t2->right;
+            }
+            return root;
+        }
+    }
+}
 void levelhelper(struct Node *root,int level){
     if(root==NULL){
         return;
-    }
+    }           //github.com/Anand-29/MIT-Pune
     if(level==1){
         printf("%d ",root->data);
     }
@@ -62,5 +101,7 @@ int main(){
     root=insert(root,6);
     root=insert(root,9);
     printlevel(root);
-    
+    root=deletedata(root,5);
+    printf("After deleting 5:-\n");
+    printlevel(root);
 }
