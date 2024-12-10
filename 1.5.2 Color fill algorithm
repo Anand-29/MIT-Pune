@@ -1,0 +1,28 @@
+def solution(b,r,c,oc,nc,n):
+    if(r<0 or c<0 or r>4 or c>3):
+        return
+    if(b[r][c]!=oc):
+        return
+    if(b[r][c]==nc):
+        return
+    b[r][c]=nc
+    solution(b,r-1,c,oc,nc,n)
+    solution(b,r+1,c,oc,nc,n)
+    solution(b,r,c-1,oc,nc,n)
+    solution(b,r,c+1,oc,nc,n)
+    solution(b,r+1,c+1,oc,nc,n)
+b=[['r','r','r','b'],
+   ['r','o','o','b'],
+   ['r','g','g','g'],
+   ['y','r','g','o'],
+   ['y','y','y','o']]
+r=2;c=0
+oc='r'
+nc='w'
+n=len(b)
+print(len(b))
+solution(b,r,c,oc,nc,n)
+for i in range(n):
+    for j in range(n-1):
+        print(b[i][j],end=" ")
+    print()
